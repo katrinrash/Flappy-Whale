@@ -1,4 +1,4 @@
-using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +6,8 @@ public class GameFlowLogic : MonoBehaviour
 {
     public GameObject gameOverScreen;
     public GameObject menuPanel;
+    public GameObject transitionManager;
+    public GameObject player;
 
     public void Start()
     {
@@ -14,6 +16,7 @@ public class GameFlowLogic : MonoBehaviour
 
     public void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
            menuPanel.SetActive(true);
@@ -40,6 +43,14 @@ public class GameFlowLogic : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0); 
+        transitionManager.GetComponent<Transition>().FadeIn();
+        StartCoroutine(AfterTransition());
+    }
+
+    public IEnumerator AfterTransition()
+    {
+        player.SetActive(false);
+        yield return new WaitForSeconds(transitionManager.GetComponent<Transition>().FadeDuration);
+        SceneManager.LoadScene(0);
     }
 }
