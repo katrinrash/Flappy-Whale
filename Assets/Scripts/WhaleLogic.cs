@@ -4,6 +4,7 @@ public class WhaleLogic : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
     public GameObject logicObject;
+
     private GameFlowLogic logic;
 
     public float flapStrength;
@@ -16,6 +17,7 @@ public class WhaleLogic : MonoBehaviour
 
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Space) && birdIsAlive)
         {
             myRigidbody.linearVelocity = Vector2.up * flapStrength;
@@ -24,7 +26,7 @@ public class WhaleLogic : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        logic.gameOver();
+        logic.GameOver();
         birdIsAlive = false;
     }
 }

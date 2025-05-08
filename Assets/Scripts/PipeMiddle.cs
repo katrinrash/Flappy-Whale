@@ -2,19 +2,20 @@ using UnityEngine;
 
 public class PipeMiddle : MonoBehaviour
 {
-    private GameFlowLogic logic;
+    private ScoreManager scoreManager;
+    private int playerLayer = 3; 
 
     private void Start()
     {
-        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<GameFlowLogic>();
+        scoreManager = GameObject.FindGameObjectWithTag("Logic").GetComponent<ScoreManager>();
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 3)
+        if (collision.gameObject.layer == playerLayer)
         {
-            logic.addScore(1);
+            scoreManager.addScore(1);
         }
 
     }

@@ -4,26 +4,42 @@ using UnityEngine.SceneManagement;
 
 public class GameFlowLogic : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
     public GameObject gameOverScreen;
+    public GameObject menuPanel;
 
-    private int playerScore;
-
-    [ContextMenu("Increase Score")]
-    public void addScore(int scoreToAdd)
+    public void Start()
     {
-        playerScore += scoreToAdd;
-        scoreText.text = $"Score: {playerScore}";
+        gameOverScreen.SetActive(false);
     }
 
-    public void restartGame()
+    public void Update()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+           menuPanel.SetActive(true);
+           Time.timeScale = 0; 
+        }
     }
 
+    public void ResumeGame()
+    {
+        menuPanel.SetActive(false);
+        Time.timeScale = 1;
+    }
 
-    public void gameOver()
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GameOver()
     {
         gameOverScreen.SetActive(true);
+    }
+
+    public void QuitGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0); 
     }
 }
